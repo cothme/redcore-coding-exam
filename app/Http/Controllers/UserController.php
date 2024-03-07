@@ -10,6 +10,9 @@ use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
+    public function show_current_user(Request $request){
+        return $request->user();
+    }
     public function index(){
         try{ 
             $users = User::all();
@@ -54,11 +57,15 @@ class UserController extends Controller
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
-    public function destroy(Request $request){
+    public function destroy(Request $request, $id){
         try {
             $user_id = $request->user()->id;
-            $user = User::find($user_id);
-            $user->delete();
+            $user_to_delete = User::find($id)->id;
+            if($user_id == $user_to_delete){
+                return response()->json(['error' => 'You cannot delete your own profile'], 403);
+            }
+
+            $user_to_delete->delete();
 
             return response()->json(['message' => 'User deleted successfully'], 200);
         } catch (\Exception $e) {

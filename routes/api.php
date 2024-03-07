@@ -26,8 +26,10 @@ Route::group([
     'as' => 'api.',
     'middleware' => ['auth:sanctum']
 ], function(){
+        Route::get('user/current',[UserController::class, 'show_current_user']);
         Route::put('user',[UserController::class, 'update']);
         Route::apiResource('user',UserController::class);
+        Route::put('role/{id}',[RoleController::class, 'update']);
         Route::apiResource('role',RoleController::class);
         Route::post('/logout',[AuthController::class, 'logout'])->name('logout');
     }
