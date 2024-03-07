@@ -5,6 +5,7 @@ use App\Http\Controllers\RoleController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,7 @@ Route::group([
     'as' => 'api.',
     'middleware' => ['auth:sanctum']
 ], function(){
+        Route::put('user',[UserController::class, 'update']);
         Route::apiResource('user',UserController::class);
         Route::apiResource('role',RoleController::class);
         Route::post('/logout',[AuthController::class, 'logout'])->name('logout');
