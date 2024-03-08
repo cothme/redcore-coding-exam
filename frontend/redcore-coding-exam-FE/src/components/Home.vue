@@ -1,31 +1,45 @@
 <template>
+  <div>
     <div class="name">
-        <button class="logout" @click="logout">LOGOUT</button>
-        <div v-if="user" style="margin-left: 10px;">
-            <p>{{ user.full_name }}</p>
-        </div>
-        <div v-else>Loading...</div>
+      <button class="logout" @click="logout">LOGOUT</button>
+      <div v-if="user" style="margin-left: 10px;">
+        <p>{{ user.full_name }}</p>
+      </div>
+      <div v-else>Loading...</div>
     </div>
-    <div class="container">
-        <RoleTable></RoleTable>
+
+    <div style="display: flex; flex-direction: row; margin: 20px;">
+      <select v-model="selectedOption">
+        <option value="User">User</option>
+        <option value="Role">Role</option>
+      </select>
     </div>
-  </template>
-  
-  <script>
-  import RoleTable from './RoleTable.vue';
-  import axios from 'axios';
- 
-  
-  export default {  
-    components: {
-        RoleTable   
-    },
-    data() {
-      return {
-        user: null
-      };
-    },
-    async mounted() {
+
+    <!-- Conditionally render the selected table component -->
+    <div class="home">
+      <RoleTable v-if="selectedOption === 'Role'"></RoleTable>
+      <UserTable v-else-if="selectedOption === 'User'"></UserTable>
+    </div>
+  </div>
+</template>
+
+<script>
+import UserTable from './UserTable.vue';
+import RoleTable from './RoleTable.vue';
+import axios from 'axios';
+
+export default {
+  components: {
+    RoleTable,
+    UserTable   
+  },
+  data() {
+    return {
+      user: null,
+      selectedOption: 'User' // Default selected option
+    };
+  },
+  async mounted() {
       try {
         const accessToken = localStorage.getItem('accessToken');
         if (!accessToken) {
@@ -44,26 +58,30 @@
         // Handle error
       }
     },
-    methods: {
+  methods: {
     logout() {
       localStorage.removeItem('accessToken');
       alert('Logout successfully')
       this.$router.push('/login');
     }
   }
-  };
-  </script>
+};
+</script>
 
 <style>
-    .name{
-        display: flex;
-        flex-direction: row;
-    }
-    .logout{
-        background: red;
-        color: white;
-        margin: 3px;  
-        justify-self: end;
-    }
+.home {
+  background-color: rgba(33, 72, 64, 0.838);
+  align-items: center;
+  height: 100vh;
+}
+.name {
+  display: flex;
+  flex-direction: row;
+}
+.logout {
+  background: red;
+  color: white;
+  margin: 3px;  
+  justify-self: end;
+}
 </style>
-  

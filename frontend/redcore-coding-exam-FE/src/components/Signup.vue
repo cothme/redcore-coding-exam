@@ -15,7 +15,7 @@
                 <input type="password"  v-model="password_confirmation">
         
                 <div>
-                    <button type="submit">Submit</button>
+                    <button class="signup" type="submit">Submit</button>
             </div>
             </form>
         <div style="color: red;" v-if="registrationErrors">{{ registrationErrors }}</div>
@@ -30,7 +30,7 @@ import { useRouter } from 'vue-router';
 export default {
     setup(){
         const router = useRouter();
-        return { router }; // Return router so it's accessible
+        return { router }; 
     },
     data() {
         return { 
@@ -59,7 +59,7 @@ export default {
                 this.email = '';
                 this.password = '';
                 this.password_confirmation = '';
-                this.router.push('/login'); // Use this.router to access router
+                this.router.push('/login');
                 alert('Register Success');
             } catch (error) {
                 if (error.response && error.response.status === 422) {

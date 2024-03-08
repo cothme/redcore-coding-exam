@@ -65,7 +65,7 @@ class UserController extends Controller
                 return response()->json(['error' => 'You cannot delete your own profile'], 403);
             }
 
-            $user_to_delete->delete();
+            User::find($id)->delete();
 
             return response()->json(['message' => 'User deleted successfully'], 200);
         } catch (\Exception $e) {
