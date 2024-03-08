@@ -9,7 +9,6 @@
           <li><router-link to="/signup">Signup</router-link></li>
         </ul>
       </nav>
-      <router-view></router-view>
     </div>
   </template>
   

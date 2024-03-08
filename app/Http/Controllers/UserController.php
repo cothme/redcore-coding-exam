@@ -35,9 +35,9 @@ class UserController extends Controller
             ]);
         }
     }
-    public function update(Request $request){
+    public function update(Request $request,$id){
         try {
-            $user = $request->user();
+            $user = User::find($id);
             
             $credentials = $request->validate([
                 'full_name' => 'required|string|regex:/^[a-zA-Z\s]*$/',
