@@ -1,33 +1,30 @@
-#app {
+.container {
+  background-color: rgba(33, 72, 64, 0.838);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Adjust this value based on your layout */
+}
+form{
   display: flex;
   flex-direction: column;
-  align-self: center;
-  font-size: 16px;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+}
+label{
+  display: flex;
+  justify-content: start;
+  margin: 10px;
+}
+button{
+  border-radius: 3px;
+  width: 100px;
+  height: 50px;
+  margin-top: 25px;
+}
+button:hover{
+  transition: 0.3s;
+  background: rgba(0, 0, 0, 0.252);
 }
 
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-  padding: 3px;
-}
-
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
-}
-
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
-
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
-}
