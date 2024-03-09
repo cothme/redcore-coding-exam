@@ -11,6 +11,8 @@
                 <button class="login" type="submit">Submit</button>
             </div>  
         </form>
+        <div style="color: red;" v-if="loginErrors">{{ loginErrors }}</div>
+
     </div>
 </template>
 
@@ -20,29 +22,40 @@ import { useRouter } from 'vue-router';
 export default {
   data() {
     return {
-      email: '',
-      password: ''
+        email: '',
+        password: '',
+        loginErrors: '',
+        registerSuccess: ''
     };
   },
   methods: {
     async login() {
       try {
         const formData = {
-          email: this.email,
-          password: this.password
+            full_name: this.full_name,
+            email: this.email,
+            password: this.password,
+            password_confirmation: this.password_confirmation
         };
         // Make login request to the backend
         const response = await axios.post('http://127.0.0.1:8000/api/login', formData);
-        const accessToken = response.data.access_token;
-        
-        // Store access token in localStorage
-        localStorage.setItem('accessToken', accessToken);
-        
-        // Redirect to another page, for example, home page
-        this.$router.push('/');
+        if(response.status === 200){
+          const accessToken = response.data.access_token;
+          alert('Login Success!')
+          localStorage.setItem('accessToken', accessToken);
+          this.$router.push('/');
+        }else if(response.status === 401){
+          alert('Wrong credentials');
+        }
       } catch (error) {
-        console.error('Error logging in:', error);
-        // Handle login error
+          if (error.response && error.response.status === 401) {
+            console.error('Error dsafsaf form:', error);
+              this.loginErrors = error.response.data.error;
+              
+          } else {
+            console.error('Error submitting form:', error);
+            this.loginErrors = 'An unexpected error occurred. Please try again later.';
+          }
       }
     }
   }

@@ -25,7 +25,7 @@
                   </div>
                   <div class="modal-body">
                     <form @submit.prevent="updateRole">  
-                      <h1>Update {{ role.id }}</h1>
+                      <h1>Update {{ role.role_name }}</h1>
                       <label>Role Name:</label>
                       <input type="text" v-model="updatedRole.role_name">
                       <label>Description:</label>

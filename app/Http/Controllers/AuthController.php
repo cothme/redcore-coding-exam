@@ -58,12 +58,12 @@ class AuthController extends Controller
 
             return response()->json([
                 'access_token' => $token
-            ]);
+            ],200);
 
         }catch(Exception $e){
             return response()->json([
                 'error' => $e->getMessage()
-            ]);
+            ],401);
         }
         
     }
