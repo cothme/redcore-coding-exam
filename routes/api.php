@@ -19,7 +19,7 @@ use App\Models\User;
 */
 
 Route::post('/login', [AuthController::class, 'login'])->name('login');
-Route::post('/register', [AuthController::class, 'register'])->name('register');
+Route::post('/register', [AuthController::class, 'register'])->name('register')->middleware('auth:sanctum');
 
 
 Route::group([
