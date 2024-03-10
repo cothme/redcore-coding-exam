@@ -1,15 +1,21 @@
 <!-- Layout.vue -->
 
 <template>
-    <div class="nav">
-      <nav>
-        <ul>
-          <li><router-link to="/">Home</router-link></li>
-          <li><router-link to="/login">Login</router-link></li>
-          <li><router-link to="/signup">Signup</router-link></li>
-        </ul>
-      </nav>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/login">Login</a>
+        </li>
+
+      </ul>
     </div>
+  </div>
+</nav>
   </template>
   
   <script>

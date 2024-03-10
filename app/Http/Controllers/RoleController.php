@@ -77,7 +77,7 @@ class RoleController extends Controller
         } catch (ValidationException $e) {
             return response()->json(['errors' => $e->validator->errors()->all()], 422);
         } catch (Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
+            return response()->json(['error' => 'dsadsad'], 500);
         }
     }
     public function destroy($id){

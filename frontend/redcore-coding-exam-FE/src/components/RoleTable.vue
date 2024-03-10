@@ -1,49 +1,52 @@
 <template>
   <div>
-    <table>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Role</th>
-          <th>Description</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="role in roles" :key="role.id">
+    <table class="table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Role</th>
+            <th>Description</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="role in roles" :key="role.id">
           <td>{{ role.id }}</td>
           <td>{{ role.role_name }}</td>
           <td>{{ role.description }}</td>
           <td>
-            <button type="button" class="actionbutton" style="background: green;" data-bs-toggle="modal" :data-bs-target="'#exampleModal'+role.id">Update</button>
-            <div class="modal fade" :id="'exampleModal'+role.id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              <button type="button" class="btn btn-danger" style="background: green;" data-bs-toggle="modal" :data-bs-target="'#exampleModal'+role.id">Update</button>
+              <div class="modal fade" :id="'exampleModal'+role.id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h1 class="modal-title fs-5" id="exampleModalLabel">Update Role</h1>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <form @submit.prevent="updateRole">
+                        <div class="mb-3">
+                          <label for="exampleInputEmail1" class="form-label">Role Name</label>
+                          <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" v-model="updatedRole.role_name">
+                        </div>
+                        <div class="mb-3">
+                          <label for="DESC" class="form-label">Description</label>
+                          <input type="text" class="form-control" id="DESC" v-model="updatedRole.description">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <button type="button" class="btn btn-success" data-bs-dismiss="modal">Update</button>
+                        </div>
+                      </form>
+                    </div> 
                   </div>
-                  <div class="modal-body">
-                    <form @submit.prevent="updateRole">  
-                      <h1>Update {{ role.role_name }}</h1>
-                      <label>Role Name:</label>
-                      <input type="text" v-model="updatedRole.role_name">
-                      <label>Description:</label>
-                      <input type="text" v-model="updatedRole.description">
-                      <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" @click="updateRole(role.id)">Save changes</button>
-                  </div>
-                    </form>
-                  </div> 
                 </div>
               </div>
-            </div>
-            <button style="background: red;" class="actionbutton" @click="deleteRole(role.id)">Delete</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+              <button style="background: red;" @click="deleteRole(role.id)" class="btn btn-danger outline-none mx-2">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
   </div>
 </template>
 
@@ -80,7 +83,8 @@ export default {
         const accessToken = localStorage.getItem('accessToken');
         await axios.put(`http://127.0.0.1:8000/api/role/${roleId}`, this.updatedRole, {
           headers: {
-            'Authorization': `Bearer ${accessToken}`
+            'Authorization': `Bearer ${accessToken}`,
+            'Accept': 'application/json'
           }
         });
         alert('Role updated successfully');

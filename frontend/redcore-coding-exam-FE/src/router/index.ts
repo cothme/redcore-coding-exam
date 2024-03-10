@@ -6,13 +6,13 @@ import Home from '@/components/Home.vue';
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    {
-      path: '/signup',
-      name: 'Register',
-      component: Signup,
-      meta: { auth: false },
+    // {
+    //   path: '/signup',
+    //   name: 'Register',
+    //   component: Signup,
+    //   meta: { auth: false },
 
-    },
+    // },
     {
       path: '/login',
       name: 'Login',
