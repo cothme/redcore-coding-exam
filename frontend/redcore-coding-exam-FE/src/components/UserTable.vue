@@ -24,7 +24,7 @@
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                      <form @submit.prevent="updateUser">
+                      <form @submit.prevent="updateUser(user.id)">
                         <h1 class="d-flex">Update User</h1>
                         <div class="mb-3">
                           <label for="exampleInputEmail1" class="form-label">Full Name</label>
@@ -124,6 +124,7 @@ export default {
             'Authorization': `Bearer ${accessToken}`
           }
         });
+        this.$router.push('/');
         alert('User updated successfully');
       } catch (error) {
         console.error(error);

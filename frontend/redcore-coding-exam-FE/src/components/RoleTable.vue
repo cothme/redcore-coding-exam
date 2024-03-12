@@ -24,7 +24,7 @@
                       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                      <form @submit.prevent="updateRole">
+                      <form @submit.prevent="updateRole(role.id)">
                         <div class="mb-3">
                           <label for="exampleInputEmail1" class="form-label">Role Name</label>
                           <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" v-model="updatedRole.role_name">
@@ -35,7 +35,7 @@
                         </div>
                         <div class="modal-footer">
                           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                          <button type="button" class="btn btn-success" data-bs-dismiss="modal">Update</button>
+                          <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Update</button>
                         </div>
                       </form>
                     </div> 
@@ -52,6 +52,7 @@
 
 <script>
 import axios from 'axios';
+import router from '@/router';
 
 export default {
   data() {
@@ -87,10 +88,10 @@ export default {
             'Accept': 'application/json'
           }
         });
+        this.$router.push('/');
         alert('Role updated successfully');
       } catch (error) {
         console.error(error);
-        // Handle error
         console.log(this.updatedRole)
         alert('Failed to update role. Please try again.');
       }
@@ -106,6 +107,7 @@ export default {
         this.roles = this.roles.filter(role => role.id !== roleId);
         alert('Role deleted successfully');
       } catch (error) {
+        this.$router.push('/');
         console.error(error);
         alert('Failed to delete role. Please try again.');
       }

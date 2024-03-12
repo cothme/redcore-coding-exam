@@ -47,6 +47,7 @@
                   <input type="password" class="form-control" id="exampleInputPassword1" v-model="createUser.password_confirmation">
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
+                <div v-if="createUserErrors" class="alert alert-danger m-4">{{ createUserErrors.join(', ') }}</div>
               </form>
             </div> 
           </div>
@@ -71,6 +72,7 @@
                   <input type="text" class="form-control" id="exampleInputPassword1" v-model="createRole.description">
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
+                <div v-if="createRoleErrors" class="alert alert-danger m-4">{{ createRoleErrors.join(', ') }}</div>
               </form>
             </div> 
           </div>
@@ -105,9 +107,11 @@ export default {
       user: null,
       roles:[],
       selectedOption: 'User',
+      createRoleErrors: '',
+      createUserErrors: '',
       createRole:{
         role_name: '',
-        description: ''
+        description: '',
       },
       createUser:{
         full_name: '',
@@ -158,7 +162,8 @@ export default {
         console.log('Role created:', response.data);
         alert('Role created successfully');
       } catch (error) {
-        console.error('Error creating role:', error);
+        this.createRoleErrors = error.response.data.errors;
+        console.error('Error creating role:', error);          
       }
     },
     async createaUser() {
@@ -172,7 +177,8 @@ export default {
         console.log('User created:', response.data);
         alert('User created successfully');
       } catch (error) {
-        console.error('Error creating user:', error);
+        this.createUserErrors = error.response.data.message;
+
       }
     }
   }
